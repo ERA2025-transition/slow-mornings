@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slow Morning Map — Free</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&family=Mulish:wght@400;500;600;700;800;900&display=swap">
+
+<style>
+  :root{
+    --wall:#F4F7F9; --wall-2:#FFFFFF; --card:#FFFFFF; --tint:#EEF3F6;
+    --ink:#182838; --ink-soft:#40566B; --muted:#7E93A5;
+    --line:#DCE5EC; --line-soft:#E9EFF3; --aegean:#1F5F7E; --aegean-lo:#2E7A9C;
+    --dawn:#E39B6E; --dawn-deep:#CE7A4A; --dawn-wash:#FBEDE2;
+    --shadow:20px 34px 66px -34px rgba(20,40,60,.42);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --wall:#0F1B27; --wall-2:#132433; --card:#16283A; --tint:#12212E;
+    --ink:#E9F1F6; --ink-soft:#B7C8D4; --muted:#7C93A4;
+    --line:#274056; --line-soft:#1E3448; --aegean:#79BEDD; --aegean-lo:#5EA9CB;
+    --dawn:#EBA576; --dawn-deep:#E3925F; --dawn-wash:#26313a;
+    --shadow:22px 36px 70px -34px rgba(0,0,0,.66);
+  }}
+  :root[data-theme="dark"]{
+    --wall:#0F1B27; --wall-2:#132433; --card:#16283A; --tint:#12212E;
+    --ink:#E9F1F6; --ink-soft:#B7C8D4; --muted:#7C93A4;
+    --line:#274056; --line-soft:#1E3448; --aegean:#79BEDD; --aegean-lo:#5EA9CB;
+    --dawn:#EBA576; --dawn-deep:#E3925F; --dawn-wash:#26313a;
+    --shadow:22px 36px 70px -34px rgba(0,0,0,.66);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--wall);color:var(--ink);
+    font-family:"Mulish",ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .wrap{max-width:1010px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- HERO / ABOVE THE FOLD ---------- */
+  .hero{padding:clamp(40px,7vw,72px) 0 clamp(36px,6vw,60px);}
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,56px);align-items:center;}
+  @media (max-width:760px){ .grid{grid-template-columns:1fr;gap:36px;} .visual{order:-1;} }
+
+  .cont{font-family:"Newsreader",Georgia,serif;font-style:italic;font-weight:300;font-size:clamp(17px,2.6vw,20px);
+    color:var(--aegean);margin:0 0 10px;}
+  h1{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:clamp(40px,7vw,60px);line-height:1.02;
+    letter-spacing:-.015em;margin:0 0 20px;text-wrap:balance;}
+  .prodline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin:0 0 12px;}
+  .prodline .name{font-weight:800;font-size:15px;letter-spacing:.02em;color:var(--ink);}
+  .free{font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--dawn-deep);
+    background:var(--dawn-wash);padding:5px 12px;border-radius:100px;}
+  .sub{color:var(--ink-soft);font-size:17px;margin:0 0 24px;max-width:42ch;}
+
+  form.opt{display:flex;gap:10px;flex-wrap:wrap;max-width:460px;}
+  form.opt input{flex:1 1 210px;min-width:0;font:inherit;font-size:16px;padding:15px 17px;border-radius:12px;
+    border:1px solid var(--line);background:var(--wall-2);color:var(--ink);}
+  form.opt input::placeholder{color:var(--muted);}
+  form.opt input:focus-visible{outline:3px solid color-mix(in srgb,var(--aegean) 38%,transparent);outline-offset:1px;border-color:var(--aegean);}
+  form.opt button{flex:0 0 auto;font:inherit;font-weight:900;font-size:15px;letter-spacing:.03em;text-transform:uppercase;
+    cursor:pointer;padding:15px 24px;border-radius:12px;border:0;background:var(--dawn);color:#2a1608;
+    transition:transform .15s,background .15s;}
+  form.opt button:hover{background:var(--dawn-deep);transform:translateY(-1px);}
+  form.opt button:focus-visible{outline:3px solid var(--ink);outline-offset:2px;}
+  .micro{margin:14px 0 0;font-size:13px;color:var(--muted);max-width:44ch;}
+  .confirm{display:none;margin:16px 0 0;padding:14px 16px;border-radius:12px;background:var(--dawn-wash);
+    color:var(--dawn-deep);font-weight:700;font-size:15px;}
+  .confirm.show{display:block;}
+  .previewnote{margin:8px 0 0;font-size:11.5px;color:var(--muted);opacity:.8;}
+
+  /* ---------- VISUAL PROOF: map cover mockup ---------- */
+  .visual{position:relative;display:flex;justify-content:center;}
+  .glow{position:absolute;inset:-6% -6% -12% -6%;z-index:0;border-radius:50%;
+    background:radial-gradient(closest-side, color-mix(in srgb,var(--dawn) 34%,transparent), transparent 72%);filter:blur(6px);}
+  .cover{position:relative;z-index:1;width:min(300px,74vw);aspect-ratio:2/3;border-radius:16px;overflow:hidden;
+    box-shadow:var(--shadow);border:5px solid var(--wall-2);color:#fff;transform:rotate(-2.5deg);
+    background:radial-gradient(120% 80% at 78% 116%,#F4D2AE 0,rgba(244,210,174,0) 46%),
+      linear-gradient(178deg,#26364B 0%,#5B5B76 44%,#B98A7E 72%,#E7A987 90%,#F4D2AE 100%);}
+  .cover .cp{padding:26px 22px;height:100%;display:flex;flex-direction:column;}
+  .cover .cb{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:.9;}
+  .cover .ct{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:34px;line-height:1.02;margin:16px 0 0;}
+  .cover .ct em{font-style:italic;color:#F6D9B6;}
+  .cover .cs{font-family:"Newsreader",Georgia,serif;font-weight:300;font-size:15px;line-height:1.4;opacity:.95;margin:12px 0 0;}
+  .cover .cfree{margin-top:auto;display:inline-flex;align-self:flex-start;gap:7px;background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.34);border-radius:100px;padding:6px 13px;font-size:11px;font-weight:800;letter-spacing:.04em;}
+
+  /* ---------- BELOW THE FOLD: INSIDE THE MAP ---------- */
+  .inside{background:var(--tint);border-top:1px solid var(--line);}
+  .inside .wrap{padding:clamp(40px,6vw,60px) 24px;}
+  .eyebrow{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--aegean);margin:0 0 20px;text-align:center;}
+  .dests{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:0 0 26px;}
+  .dests span{font-family:"Newsreader",Georgia,serif;font-size:17px;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);border-radius:100px;padding:7px 16px;}
+  .fieldlead{text-align:center;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;}
+  .fields{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:640px;margin:0 auto 30px;}
+  .fields span{font-size:13.5px;font-weight:700;color:var(--aegean);background:var(--card);border:1px solid var(--line);
+    border-radius:9px;padding:8px 13px;}
+  .cred{font-family:"Newsreader",Georgia,serif;font-weight:300;font-size:clamp(18px,3vw,21px);line-height:1.45;
+    color:var(--ink-soft);text-align:center;max-width:34ch;margin:0 auto;}
+  .cred b{color:var(--ink);font-weight:500;font-style:italic;}
+
+  footer{padding:26px 0 40px;text-align:center;color:var(--muted);font-size:12.5px;}
+  footer a{color:var(--muted);}
+
+  .fade{opacity:0;transform:translateY(14px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;}
+  .fade.d1{animation-delay:.08s;}.fade.d2{animation-delay:.16s;}.fade.d3{animation-delay:.24s;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+<!-- Replace the .opt form below with the Brevo double-opt-in embed before enabling Pages. Pass pin UTMs into Brevo hidden fields (R-0050). -->
+
+<section class="hero">
+  <div class="wrap">
+    <div class="grid">
+      <div class="copy">
+        <p class="cont fade">You found one Slow Morning.</p>
+        <h1 class="fade d1">Take all seven<br>with you.</h1>
+        <div class="prodline fade d2">
+          <span class="name">The Slow Morning Map</span><span class="free">Free</span>
+        </div>
+        <p class="sub fade d2">Seven European mornings worth building a trip around — with the best season, best time, morning budget, coffee ritual, and a tiny morning plan.</p>
+        <form class="opt fade d3" onsubmit="return sendMap(event)">
+          <input type="email" name="email" placeholder="Your email" aria-label="Your email" required>
+          <button type="submit">Send me the Map →</button>
+        </form>
+        <p class="confirm" id="confirm">Almost there — check your inbox and click confirm, and your Map is on its way. ☕</p>
+        <p class="micro fade d3">Free. One slow morning a week. Unsubscribe anytime. You'll confirm your email first (double opt-in).</p>
+        <p class="previewnote">Preview — in production this connects to the Brevo double-opt-in list.</p>
+      </div>
+      <div class="visual fade d2">
+        <div class="glow"></div>
+        <div class="cover">
+          <div class="cp">
+            <div class="cb">Travel Adventures by Eunice</div>
+            <div class="ct">The Slow<br>Morning <em>Map</em></div>
+            <div class="cs">7 European mornings worth crossing an ocean for.</div>
+            <span class="cfree">Free guide · 7 mornings</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inside">
+  <div class="wrap">
+    <p class="eyebrow">Inside the Map</p>
+    <div class="dests">
+      <span>Santorini</span><span>Positano</span><span>Lake Como</span><span>Paris</span><span>Lisbon</span><span>Lauterbrunnen</span><span>The Cotswolds</span>
+    </div>
+    <p class="fieldlead">For each morning</p>
+    <div class="fields">
+      <span>Best season</span><span>Best time</span><span>Morning budget</span><span>Where to start</span><span>Coffee ritual</span><span>Tiny morning plan</span>
+    </div>
+    <p class="cred">No rushed checklists. <b>Just seven beautiful mornings designed to help you decide where you'd linger first.</b></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Travel Adventures by Eunice · <a href="#">Privacy</a></div>
+</footer>
+
+<script>
+  function sendMap(e){
+    e.preventDefault();
+    document.getElementById('confirm').classList.add('show');
+    e.target.querySelector('input').value='';
+    return false;
+  }
+</script>
+</body>
+</html>
