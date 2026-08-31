@@ -62,6 +62,10 @@
   #success-message.sib-form-message-panel{background:var(--dawn-wash) !important;color:var(--dawn-deep) !important;border-color:transparent !important;}
   .input--hidden,.hidden-utm{display:none !important;}
   .sib-form-block{padding:0 !important;}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin:16px 0 0;max-width:480px;font-size:13px;line-height:1.5;color:var(--ink-soft);cursor:pointer;}
+  .consent input{margin-top:2px;width:16px;height:16px;accent-color:var(--aegean);flex:0 0 auto;}
+  .legalnote{margin:14px 0 0;font-size:11.5px;line-height:1.55;color:var(--muted);max-width:480px;}
+  .legalnote a{color:var(--aegean);}
 
   .visual{position:relative;display:flex;justify-content:center;}
   .glow{position:absolute;inset:-6% -6% -12% -6%;z-index:0;border-radius:50%;background:radial-gradient(closest-side, color-mix(in srgb,var(--dawn) 34%,transparent), transparent 72%);filter:blur(6px);}
@@ -118,6 +122,10 @@
                     Send me the Map &rarr;
                   </button>
                 </div>
+                <label class="consent">
+                  <input type="checkbox" name="lists_25[]" value="12">
+                  <span>Yes, I'd also like occasional Slow Morning travel inspiration and offers from Travel Adventures by Eunice. I can unsubscribe at any time.</span>
+                </label>
                 <!-- UTM capture (prefilled from the pin URL) -->
                 <input type="hidden" id="UTM_SOURCE" name="UTM_SOURCE" value="" class="hidden-utm">
                 <input type="hidden" id="UTM_CONTENT" name="UTM_CONTENT" value="" class="hidden-utm">
@@ -131,7 +139,7 @@
         </div>
         <!-- End Brevo Form -->
 
-        <p class="micro">Free. One slow morning a week. Unsubscribe anytime. You'll confirm your email first (double opt-in).</p>
+        <p class="legalnote">You'll get the Map either way. We use your email to send the Map and, if you tick the box, our Slow Mornings emails (we measure opens and clicks to see what's useful). Data controller: Rosado Management Solutions, Inc., acting through its establishment in Málaga, Spain; processor: Brevo (Sendinblue SAS, France). Unsubscribe or request deletion anytime at privacy@rosadomgmtsolutions.com. See our <a href="https://rosadomgmtsolutions.com/privacy">Privacy Policy</a>.</p>
       </div>
       <div class="visual">
         <div class="glow"></div>
@@ -177,15 +185,13 @@
 </script>
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 <script>
-  /* Prefill hidden UTM fields from the pin/link URL so acquisition source flows into Brevo */
-  (function(){
-    try{
-      var p = new URLSearchParams(window.location.search);
-      [['UTM_SOURCE','utm_source'],['UTM_CONTENT','utm_content'],['UTM_TERM','utm_term']].forEach(function(pair){
-        var el = document.getElementById(pair[0]); var v = p.get(pair[1]);
-        if(el && v){ el.value = v; }
-      });
-    }catch(e){}
+  /* Fill hidden attribution fields from the landing-page URL; fall back to referrer host for source. */
+  (function () {
+    var q = new URLSearchParams(window.location.search);
+    function put(id, param){ var el=document.getElementById(id); if(!el) return; var v=q.get(param); if(v) el.value=v.slice(0,200); }
+    put('UTM_SOURCE','utm_source'); put('UTM_CONTENT','utm_content'); put('UTM_TERM','utm_term');
+    var src=document.getElementById('UTM_SOURCE');
+    if(src && !src.value && document.referrer){ try{ src.value=new URL(document.referrer).hostname.slice(0,200);}catch(e){} }
   })();
 </script>
 </body>
