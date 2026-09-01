@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your Slow Morning Map is ready</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%85%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=Mulish:wght@400;600;700;800;900&display=swap">
+<style>
+  :root{
+    --wall:#F4F7F9; --card:#FFFFFF; --tint:#EEF3F6; --ink:#182838; --ink-soft:#40566B; --muted:#7E93A5;
+    --line:#DCE5EC; --aegean:#1F5F7E; --dawn:#E39B6E; --dawn-deep:#CE7A4A; --dawn-wash:#FBEDE2;
+    --shadow:20px 34px 66px -34px rgba(20,40,60,.42);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --wall:#0F1B27; --card:#16283A; --tint:#12212E; --ink:#E9F1F6; --ink-soft:#B7C8D4; --muted:#7C93A4;
+    --line:#274056; --aegean:#79BEDD; --dawn:#EBA576; --dawn-deep:#E3925F; --dawn-wash:#26313a;
+    --shadow:22px 36px 70px -34px rgba(0,0,0,.66);
+  }}
+  :root[data-theme="dark"]{
+    --wall:#0F1B27; --card:#16283A; --tint:#12212E; --ink:#E9F1F6; --ink-soft:#B7C8D4; --muted:#7C93A4;
+    --line:#274056; --aegean:#79BEDD; --dawn:#EBA576; --dawn-deep:#E3925F; --dawn-wash:#26313a;
+    --shadow:22px 36px 70px -34px rgba(0,0,0,.66);
+  }
+  *{box-sizing:border-box;margin:0;}
+  body{background:
+      radial-gradient(120% 60% at 50% -10%, var(--dawn-wash) 0%, rgba(251,237,226,0) 55%),
+      var(--wall);
+    color:var(--ink);font-family:"Mulish",ui-sans-serif,system-ui,-apple-system,sans-serif;font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
+  .wrap{max-width:620px;margin:0 auto;padding:clamp(48px,9vw,84px) 24px 40px;text-align:center;flex:1;}
+  .ey{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--aegean);margin:0 0 14px;}
+  h1{font-family:"Newsreader",Georgia,serif;font-weight:400;font-size:clamp(34px,6.5vw,50px);line-height:1.05;letter-spacing:-.015em;margin:0 0 16px;text-wrap:balance;}
+  .sub{font-family:"Newsreader",Georgia,serif;font-weight:300;font-size:clamp(18px,3.2vw,21px);line-height:1.45;color:var(--ink-soft);margin:0 auto 30px;max-width:34ch;}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:900;font-size:17px;letter-spacing:.02em;text-decoration:none;
+    background:var(--dawn);color:#2a1608;padding:17px 32px;border-radius:14px;box-shadow:0 16px 34px -14px rgba(206,122,74,.6);
+    transition:transform .15s,background .15s;}
+  .btn:hover{background:var(--dawn-deep);transform:translateY(-1px);}
+  .fallback{margin:14px 0 0;font-size:13px;color:var(--muted);}
+  .fallback a{color:var(--aegean);}
+  .mapimg{display:block;width:100%;max-width:520px;margin:38px auto 0;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);}
+  .next{margin:36px auto 0;max-width:44ch;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;text-align:left;}
+  .next h2{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--aegean);margin:0 0 10px;}
+  .next p{font-size:15px;color:var(--ink-soft);margin:0;}
+  .next b{color:var(--ink);font-weight:700;}
+  footer{padding:28px 24px 44px;text-align:center;color:var(--muted);font-size:12.5px;}
+  footer a{color:var(--muted);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="ey">You're confirmed ☕</p>
+    <h1>Your Slow Morning Map<br>is ready.</h1>
+    <p class="sub">Seven European mornings worth crossing an ocean for — yours to keep.</p>
+
+    <a class="btn" href="slow-morning-map-5c64e03b.pdf" download="The-Slow-Morning-Map.pdf">Download the Map →</a>
+    <p class="fallback">Button not working? <a href="slow-morning-map-5c64e03b.pdf" target="_blank" rel="noopener">Open the Map here</a>.</p>
+
+    <img class="mapimg" src="europe-map.png" alt="Map of Europe marking the seven slow mornings" loading="lazy">
+
+    <div class="next">
+      <h2>What's next</h2>
+      <p>Explore the seven, and pick the one you'd plan first. In a day or two I'll ask you <b>which one pulls you first</b> — just so I send you the right mornings next. If you opted in, a new Slow Morning lands each week. That's the whole promise. No noise. — Eunice</p>
+    </div>
+  </div>
+  <footer>
+    Travel Adventures by Eunice — a Rosado Management Solutions brand ·
+    <a href="https://rosadomgmtsolutions.com/privacy">Privacy</a> ·
+    <a href="https://rosadomgmtsolutions.com/terms">Terms</a> ·
+    <a href="https://rosadomgmtsolutions.com/accessibility">Accessibility</a>
+  </footer>
+</body>
+</html>
