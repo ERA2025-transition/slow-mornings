@@ -153,7 +153,7 @@
         </div>
         <!-- End Brevo Form -->
 
-        <p class="legalnote">You'll get the Map either way. We use your email to send the Map and, if you tick the box, our Slow Mornings emails (we measure opens and clicks to see what's useful). Data controller: Rosado Management Solutions, Inc., acting through its establishment in Málaga, Spain; processor: Brevo (Sendinblue SAS, France). Unsubscribe or request deletion anytime at privacy@rosadomgmtsolutions.com. See our <a href="https://rosadomgmtsolutions.com/privacy">Privacy Policy</a>.</p>
+        <p class="legalnote">You'll get the Map either way. We use your email to send the Map and, if you tick the box, our Slow Mornings emails. If you tick the box, we also measure opens and clicks on our emails so we know what's useful; if you don't, opens and clicks aren't linked to you. Data controller: Rosado Management Solutions, Inc., acting through its establishment in Málaga, Spain; processor: Brevo (Sendinblue SAS, France). Unsubscribe or request deletion anytime at privacy@rosadomgmtsolutions.com. See our <a href="https://rosadomgmtsolutions.com/privacy">Privacy Policy</a>.</p>
       </div>
       <div class="visual">
         <div class="glow"></div>
@@ -205,6 +205,8 @@
     put('UTM_SOURCE','utm_source'); put('UTM_CONTENT','utm_content'); put('UTM_TERM','utm_term');
     var src=document.getElementById('UTM_SOURCE');
     if(src && !src.value && document.referrer){ try{ src.value=new URL(document.referrer).hostname.slice(0,200);}catch(e){} }
+    /* Never post an empty attribution field: Brevo would overwrite the value saved at first signup. */
+    ['UTM_SOURCE','UTM_CONTENT','UTM_TERM'].forEach(function(id){ var el=document.getElementById(id); if(el && !el.value){ el.parentNode.removeChild(el); } });
   })();
 </script>
 </body>
