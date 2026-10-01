@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <title>The Slow Morning Map — Free</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Analytics 4 — Travel Adventures by Eunice -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TNDM0135S3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TNDM0135S3');
+</script>
 <meta name="description" content="The Slow Morning Map — seven European mornings worth crossing an ocean for. A free guide from Travel Adventures by Eunice.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%85%3C/text%3E%3C/svg%3E">
 <!-- Social preview -->
@@ -144,6 +152,8 @@
                 <input type="hidden" id="UTM_SOURCE" name="UTM_SOURCE" value="" class="hidden-utm">
                 <input type="hidden" id="UTM_CONTENT" name="UTM_CONTENT" value="" class="hidden-utm">
                 <input type="hidden" id="UTM_TERM" name="UTM_TERM" value="" class="hidden-utm">
+                <input type="hidden" id="UTM_MEDIUM" name="UTM_MEDIUM" value="" class="hidden-utm">
+                <input type="hidden" id="UTM_CAMPAIGN" name="UTM_CAMPAIGN" value="" class="hidden-utm">
                 <!-- Brevo anti-bot + locale -->
                 <input type="text" name="email_address_check" value="" class="input--hidden">
                 <input type="hidden" name="locale" value="en">
@@ -185,6 +195,8 @@
 
 <footer>
   <div class="wrap">Travel Adventures by Eunice — a Rosado Management Solutions brand &middot; <a href="https://rosadomgmtsolutions.com/privacy">Privacy</a> &middot; <a href="https://rosadomgmtsolutions.com/terms">Terms</a> &middot; <a href="https://rosadomgmtsolutions.com/accessibility">Accessibility</a></div>
+  <div class="wrap" style="margin-top:10px;">Some links in our guides and emails are affiliate links. I may earn a small commission at no extra cost to you.</div>
+  <div class="wrap" style="margin-top:6px;">Rosado Management Solutions Inc., 30 N Gould St, Suite R, Sheridan, WY 82801, USA</div>
 </footer>
 
 <script>
@@ -203,10 +215,27 @@
     var q = new URLSearchParams(window.location.search);
     function put(id, param){ var el=document.getElementById(id); if(!el) return; var v=q.get(param); if(v) el.value=v.slice(0,200); }
     put('UTM_SOURCE','utm_source'); put('UTM_CONTENT','utm_content'); put('UTM_TERM','utm_term');
+    put('UTM_MEDIUM','utm_medium'); put('UTM_CAMPAIGN','utm_campaign');
     var src=document.getElementById('UTM_SOURCE');
     if(src && !src.value && document.referrer){ try{ src.value=new URL(document.referrer).hostname.slice(0,200);}catch(e){} }
     /* Never post an empty attribution field: Brevo would overwrite the value saved at first signup. */
-    ['UTM_SOURCE','UTM_CONTENT','UTM_TERM'].forEach(function(id){ var el=document.getElementById(id); if(el && !el.value){ el.parentNode.removeChild(el); } });
+    ['UTM_SOURCE','UTM_CONTENT','UTM_TERM','UTM_MEDIUM','UTM_CAMPAIGN'].forEach(function(id){ var el=document.getElementById(id); if(el && !el.value){ el.parentNode.removeChild(el); } });
+  })();
+</script>
+<script>
+  /* GA4 lead event. Fires on submit, before the form posts to Brevo. */
+  (function () {
+    var f = document.getElementById('sib-form');
+    if (!f) return;
+    f.addEventListener('submit', function () {
+      if (typeof gtag !== 'function') return;
+      var q = new URLSearchParams(window.location.search);
+      gtag('event', 'generate_lead', {
+        method: 'slow_mornings_lp',
+        campaign: q.get('utm_campaign') || 'slowmornings',
+        content: q.get('utm_content') || ''
+      });
+    });
   })();
 </script>
 </body>
